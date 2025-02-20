@@ -257,8 +257,15 @@ if __name__ == "__main__":
         })
         
         #yolov9 model 
-        model1 = YOLO("models\\yolov9t_hh.pt")
-        model2 = YOLO("models\\yolov9c-seg.pt")
+        try:
+            model1 = YOLO("models\\yolov9t_hh.pt")
+            model2 = YOLO("models\\yolov9c-seg.pt")
+        except:
+            try:
+                model1 = YOLO("models/yolov9t_hh.pt")
+                model2 = YOLO("models/yolov9c-seg.pt")
+            except Exception as e:
+                raise e
 
         #child process initialization
         stream_process = multiprocessing.Process(target=read_cam, args=(lock, frame_queue))
