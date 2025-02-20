@@ -1,7 +1,5 @@
 ultralytics
-multiprocessing
 keyboard
 pyttsx3
 easyocr
-colorsys
 tensorflow
