@@ -26,7 +26,7 @@ def OCR(img, lang='en'):
 
 def words(text): return re.findall(r'\w+', text.lower())
 
-WORDS = Counter(words(open('C:\\Skripsi\\Handheld_Model\\dictionary\\filtered_sorted_words.txt').read()))
+WORDS = Counter(words(open('..\\dictionary\\filtered_sorted_words.txt').read()))
 
 def jaccard(word, cands): 
     """
