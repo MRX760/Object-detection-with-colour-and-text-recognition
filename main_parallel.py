@@ -147,7 +147,7 @@ def classif_color(result, queue):
 def OCR(result, queue):
     while True:
         if result['is_processed_by_ocr'] == False and queue.empty() == False:
-            print('\n\nOCR begin\n\n')
+            # print('\n\nOCR begin\n\n')
             img = queue.get()
             if img is None:
                 break
@@ -179,7 +179,7 @@ def speak(result):
             if result['obj_text'] != "":
                 word + " with overlaying text, " + result['obj_text']
             result['is_spoken'] = True
-            print(word)
+            # print(word)
             engine.say(word)
             engine.runAndWait()
 
@@ -213,16 +213,16 @@ def read_cam(lock, frame_queue):
         # print('loopin..')
         time.sleep(0.03)  # Prevent CPU overuse (~30 FPS)
 
-def key_listener(processes):
-    """Waits for the 'Esc' key, then terminates all processes."""
-    print("Press 'Esc' to terminate all processes...")
-    while True:
-        if keyboard.is_pressed("esc"):
-            print("\n[!] ESC pressed. Terminating all processes...")
-            for p in processes:
-                p.terminate()
-                p.join()
-            break
+# def key_listener(processes):
+#     """Waits for the 'Esc' key, then terminates all processes."""
+#     print("Press 'Esc' to terminate all processes...")
+#     while True:
+#         if keyboard.is_pressed("esc"):
+#             print("\n[!] ESC pressed. Terminating all processes...")
+#             for p in processes:
+#                 p.terminate()
+#                 p.join()
+#             break
 
 
 if __name__ == "__main__":
