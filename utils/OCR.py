@@ -26,7 +26,14 @@ def OCR(img, lang='en'):
 
 def words(text): return re.findall(r'\w+', text.lower())
 
-WORDS = Counter(words(open('..\\dictionary\\filtered_sorted_words.txt').read()))
+# try:
+#     WORDS = Counter(words(open('..\\dictionary\\filtered_sorted_words.txt').read()))
+# except:
+try:
+    WORDS = Counter(words(open('../dictionary/filtered_sorted_words.txt').read()))
+except Exception as e:
+    raise e
+        
 
 def jaccard(word, cands): 
     """
