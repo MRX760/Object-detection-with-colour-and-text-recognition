@@ -1,6 +1,7 @@
 import easyocr
 import re
 from collections import Counter
+import os
 
 def OCR(img, lang='en'):    
     """
@@ -30,7 +31,7 @@ def words(text): return re.findall(r'\w+', text.lower())
 #     WORDS = Counter(words(open('..\\dictionary\\filtered_sorted_words.txt').read()))
 # except:
 try:
-    WORDS = Counter(words(open('../dictionary/filtered_sorted_words.txt').read()))
+    WORDS = Counter(words(open(os.path.abspath("../dictionary/filtered_sorted_words.txt")).read()))
 except Exception as e:
     raise e
         
