@@ -59,7 +59,7 @@ def detect_handheld(model1, model2, frame_queue, result, ocr_queue, color_queue,
                 'toothbrush': 'sikat gigi'
             }
             # print(f"detected object {obj_cls} {obj_conf} ||||| {result['obj_cls']} {result['obj_cls_conf_score']} color stats -> {result['is_processed_by_color']} {result['obj_color']}")
-            print(f"{result['obj_cls']} {result['obj_cls_conf_score']} {result['obj_color']} {result['obj_text']} {result['is_processed_by_ocr']} {result['is_processed_by_color']}")
+            # print(f"{result['obj_cls']} {result['obj_cls_conf_score']} {result['obj_color']} {result['obj_text']} {result['is_processed_by_ocr']} {result['is_processed_by_color']}")
             if obj_cls != "None": #if any object is detected
                 # print('\n#\n')
                 with lock: #locking shared var
