@@ -9,7 +9,7 @@ from Preprocessing_algorithm.retinex.code import retinex
 import multiprocessing
 from multiprocessing import Manager, Queue
 # import timeit
-import datetime
+from datetime import datetime
 import keyboard
 import time
 
