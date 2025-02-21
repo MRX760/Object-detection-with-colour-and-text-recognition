@@ -9,7 +9,7 @@ from Preprocessing_algorithm.retinex.code import retinex
 import multiprocessing
 from multiprocessing import Manager, Queue
 # import timeit
-# import datetime
+import datetime
 import keyboard
 import time
 
@@ -59,7 +59,7 @@ def detect_handheld(model1, model2, frame_queue, result, ocr_queue, color_queue,
                 'toothbrush': 'sikat gigi'
             }
             # print(f"detected object {obj_cls} {obj_conf} ||||| {result['obj_cls']} {result['obj_cls_conf_score']} color stats -> {result['is_processed_by_color']} {result['obj_color']}")
-            # print(f"{result['obj_cls']} {result['obj_cls_conf_score']} {result['obj_color']} {result['obj_text']} {result['is_processed_by_ocr']} {result['is_processed_by_color']}")
+            print(f"{result['obj_cls']} {result['obj_cls_conf_score']} {result['obj_color']} {result['obj_text']} {result['is_processed_by_ocr']} {result['is_processed_by_color']}")
             if obj_cls != "None": #if any object is detected
                 # print('\n#\n')
                 with lock: #locking shared var
@@ -157,7 +157,7 @@ def OCR(result, queue):
 
 def speak(result):
     # print('initialize tts engine')
-    # engine = pyttsx3.init()
+    engine = pyttsx3.init()
     # Set the Indonesian voice (Andika)
     # print('initialize tts engine property')
 
@@ -165,8 +165,8 @@ def speak(result):
     # engine.setProperty('voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_ID-ID_Andika_11.0')
 
     # Set properties (optional)
-    # engine.setProperty('rate', 150)    # Speed of speech (default is 200)
-    # engine.setProperty('volume', 1.0)  # Volume level (range 0.0 to 1.0)
+    engine.setProperty('rate', 150)    # Speed of speech (default is 200)
+    engine.setProperty('volume', 1.0)  # Volume level (range 0.0 to 1.0)
     # count = 0
     while True:
         # print('checking..')
@@ -180,6 +180,8 @@ def speak(result):
                 word + " with overlaying text, " + result['obj_text']
             result['is_spoken'] = True
             print(word)
+            now = datetime.now()
+            print(now.strftime("%Y-%m-%d %H:%M:%S"))  # Example: 2025-02-21 14:35:12
             # engine.say(word)
             # engine.runAndWait()
 
@@ -213,16 +215,6 @@ def read_cam(lock, frame_queue):
         # print('loopin..')
         time.sleep(0.03)  # Prevent CPU overuse (~30 FPS)
 
-# def key_listener(processes):
-#     """Waits for the 'Esc' key, then terminates all processes."""
-#     print("Press 'Esc' to terminate all processes...")
-#     while True:
-#         if keyboard.is_pressed("esc"):
-#             print("\n[!] ESC pressed. Terminating all processes...")
-#             for p in processes:
-#                 p.terminate()
-#                 p.join()
-#             break
 
 
 if __name__ == "__main__":
@@ -257,8 +249,15 @@ if __name__ == "__main__":
         })
         
         #yolov9 model 
-        model1 = YOLO("models\\yolov9t_hh.pt")
-        model2 = YOLO("models\\yolov9c-seg.pt")
+        try:
+            model1 = YOLO("models\\yolov9t_hh.pt")
+            model2 = YOLO("models\\yolov9c-seg.pt")
+        except:
+            try:
+                model1 = YOLO("models/yolov9t_hh.pt")
+                model2 = YOLO("models/yolov9c-seg.pt")
+            except Exception as e:
+                raise e
 
         #child process initialization
         stream_process = multiprocessing.Process(target=read_cam, args=(lock, frame_queue))
@@ -269,6 +268,8 @@ if __name__ == "__main__":
         tts_process = multiprocessing.Process(target=speak, args=(result,))
         
         #starting child process
+        now = datetime.now()
+        print(now.strftime("%Y-%m-%d %H:%M:%S"))  # Example: 2025-02-21 14:35:12
         stream_process.start()
         yolov9_process.start()
         ocr_process.start()
@@ -280,4 +281,3 @@ if __name__ == "__main__":
         ocr_process.join()
         color_process.join()
         tts_process.join()
-        
