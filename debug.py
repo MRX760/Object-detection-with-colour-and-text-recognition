@@ -181,7 +181,7 @@ def speak(result):
             result['is_spoken'] = True
             print(word)
             now = datetime.now()
-            print(f"Speak at: {now.strftime("%Y-%m-%d %H:%M:%S")}")  # Example: 2025-02-21 14:35:12
+            print(f'Speak at: {now.strftime("%Y-%m-%d %H:%M:%S")}')  # Example: 2025-02-21 14:35:12
             # engine.say(word)
             # engine.runAndWait()
 
@@ -269,7 +269,7 @@ if __name__ == "__main__":
         
         #starting child process
         now = datetime.now()
-        print(f"program begin: {now.strftime("%Y-%m-%d %H:%M:%S")}")  # Example: 2025-02-21 14:35:12
+        print(f'program begin: {now.strftime("%Y-%m-%d %H:%M:%S")}')  # Example: 2025-02-21 14:35:12
         stream_process.start()
         yolov9_process.start()
         ocr_process.start()
