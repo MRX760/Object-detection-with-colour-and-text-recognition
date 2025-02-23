@@ -10,7 +10,7 @@ import multiprocessing
 from multiprocessing import Manager, Queue
 # import timeit
 # import datetime
-import keyboard
+# import keyboard
 import time
 
 def read_image(img_address):
