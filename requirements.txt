@@ -1,5 +1,4 @@
 ultralytics
-keyboard
 pyttsx3
 easyocr
-tensorflow
+scikit-learn
